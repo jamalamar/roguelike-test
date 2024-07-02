@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://c6uo2odqcg4cs"]
+
+[ext_resource type="Script" path="res://spells/fireattack.gd" id="1_cgog1"]
+[ext_resource type="Texture2D" uid="uid://cc6x5yemitrd8" path="res://assets/sprites/Fire Attack Animation.png" id="1_q04bv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iekts"]
+atlas = ExtResource("1_q04bv")
+region = Rect2(0, 0, 180, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4o0xn"]
+atlas = ExtResource("1_q04bv")
+region = Rect2(180, 0, 180, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jult4"]
+atlas = ExtResource("1_q04bv")
+region = Rect2(0, 150, 180, 150)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x7uvf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iekts")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4o0xn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jult4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i2n85"]
+radius = 9.0
+
+[node name="fireattack" type="Area2D"]
+top_level = true
+rotation = -0.0230827
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_cgog1")
+
+[node name="fire_projectile" type="AnimatedSprite2D" parent="."]
+rotation = -2.41376
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_x7uvf")
+autoplay = "default"
+frame_progress = 0.299566
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(12, 1)
+shape = SubResource("CircleShape2D_i2n85")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

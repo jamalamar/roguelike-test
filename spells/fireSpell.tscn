@@ -1,0 +1,83 @@
+[gd_scene load_steps=11 format=3 uid="uid://b5rjyhjy6qlao"]
+
+[ext_resource type="Script" path="res://spells/fireSpell.gd" id="1_cxuhv"]
+[ext_resource type="Texture2D" uid="uid://b10chtripmbct" path="res://assets/sprites/Fire Spell.png" id="2_aaqcp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pdsjh"]
+radius = 302.026
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f36pq"]
+atlas = ExtResource("2_aaqcp")
+region = Rect2(120, 0, 120, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ijnyh"]
+atlas = ExtResource("2_aaqcp")
+region = Rect2(0, 0, 120, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuya1"]
+atlas = ExtResource("2_aaqcp")
+region = Rect2(240, 0, 120, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wgort"]
+atlas = ExtResource("2_aaqcp")
+region = Rect2(240, 120, 120, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iaw1j"]
+atlas = ExtResource("2_aaqcp")
+region = Rect2(120, 120, 120, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y7j3m"]
+atlas = ExtResource("2_aaqcp")
+region = Rect2(0, 120, 120, 120)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lft75"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f36pq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ijnyh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tuya1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wgort")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iaw1j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y7j3m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="fireSpell" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_cxuhv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_pdsjh")
+
+[node name="fireSpell" type="AnimatedSprite2D" parent="."]
+position = Vector2(42, 0)
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_lft75")
+autoplay = "default"
+frame_progress = 0.703854
+
+[node name="ShootingPoint" type="Marker2D" parent="fireSpell"]
+unique_name_in_owner = true
+position = Vector2(0, 3.33333)
+scale = Vector2(3.33333, 3.33333)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
